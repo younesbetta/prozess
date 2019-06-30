@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_0d34bvo" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="2.2.4">
+  <bpmn:collaboration id="Collaboration_0lbu8x0">
+    <bpmn:participant id="Darlehungsantrag" name="Darlehungsantrag bearbeitenstsrer" processRef="Process_1" />
+  </bpmn:collaboration>
+  <bpmn:process id="Process_1" isExecutable="true">
+    <bpmn:userTask id="Task_0yvk6po" name="Entscheidung visualisieren">
+      <bpmn:extensionElements>
+        <camunda:formData>
+          <camunda:formField id="Entscheidung" label="Entscheidung" type="string" />
+        </camunda:formData>
+      </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlow_0y0pjgm</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_1437jpv</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:exclusiveGateway id="ExclusiveGateway_18wdjfw" name="angenommen?" camunda:asyncBefore="true">
+      <bpmn:incoming>SequenceFlow_1437jpv</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0pa59bp</bpmn:outgoing>
+      <bpmn:outgoing>SequenceFlow_0vhu5hh</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:userTask id="Antrag" name="Antragsprüfung beschleunigen">
+      <bpmn:incoming>SequenceFlow_0pa59bp</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_1n3cbq2</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:endEvent id="EndEvent_0ppkt9d">
+      <bpmn:incoming>SequenceFlow_1n3cbq2</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="SequenceFlow_0vhu5hh" name="nein" sourceRef="ExclusiveGateway_18wdjfw" targetRef="EndEvent_17nunju">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${Entscheidung== 'abgelehnt' }</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="SequenceFlow_0pa59bp" name="ja" sourceRef="ExclusiveGateway_18wdjfw" targetRef="Antrag">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${Entscheidung== 'Annehmbar'}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="SequenceFlow_1437jpv" sourceRef="Task_0yvk6po" targetRef="ExclusiveGateway_18wdjfw" />
+    <bpmn:sequenceFlow id="SequenceFlow_1n3cbq2" sourceRef="Antrag" targetRef="EndEvent_0ppkt9d" />
+    <bpmn:sequenceFlow id="SequenceFlow_1otygtd" sourceRef="StartEvent_1" targetRef="Darlehenprozess" />
+    <bpmn:sequenceFlow id="SequenceFlow_03tf24g" sourceRef="Darlehenprozess" targetRef="Risikobewerten" />
+    <bpmn:sequenceFlow id="SequenceFlow_0y0pjgm" sourceRef="Risikobewerten" targetRef="Task_0yvk6po" />
+    <bpmn:businessRuleTask id="Risikobewerten" name="Risikoberwerten " camunda:resultVariable="Entscheidung" camunda:decisionRef="Risiko" camunda:mapDecisionResult="singleEntry">
+      <bpmn:incoming>SequenceFlow_03tf24g</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0y0pjgm</bpmn:outgoing>
+    </bpmn:businessRuleTask>
+    <bpmn:userTask id="Darlehenprozess" name="Darlehenprozesss">
+      <bpmn:extensionElements>
+        <camunda:formData>
+          <camunda:formField id="Statusdenkunden" label="Statusdenkunden" type="string" />
+          <camunda:formField id="Alter" label="Alter" type="boolean" />
+          <camunda:formField id="Arbeitsvertragsfrist" label="Arbeitsvertragsfrist" type="string" />
+          <camunda:formField id="Jahreseinkommen" label="Jahreseinkommen" type="long" />
+          <camunda:formField id="rueckzahlungsgarantie" label="rückzahlungsgarantie" type="boolean" />
+          <camunda:formField id="Darlehensart" label="Darlehensart" type="string" />
+        </camunda:formData>
+      </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlow_1otygtd</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_03tf24g</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:startEvent id="StartEvent_1">
+      <bpmn:outgoing>SequenceFlow_1otygtd</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:endEvent id="EndEvent_17nunju">
+      <bpmn:incoming>SequenceFlow_0vhu5hh</bpmn:incoming>
+    </bpmn:endEvent>
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_0lbu8x0">
+      <bpmndi:BPMNShape id="Participant_0z0g8fp_di" bpmnElement="Darlehungsantrag">
+        <dc:Bounds x="270" y="92" width="1051" height="330" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds x="325" y="235" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="UserTask_0xp7fnc_di" bpmnElement="Darlehenprozess">
+        <dc:Bounds x="400" y="213" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="UserTask_1qoug5j_di" bpmnElement="Task_0yvk6po">
+        <dc:Bounds x="685" y="213" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="UserTask_192j5z7_di" bpmnElement="Antrag">
+        <dc:Bounds x="912" y="124" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EndEvent_0ppkt9d_di" bpmnElement="EndEvent_0ppkt9d">
+        <dc:Bounds x="1050" y="146" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_0y0pjgm_di" bpmnElement="SequenceFlow_0y0pjgm">
+        <di:waypoint x="645" y="253" />
+        <di:waypoint x="685" y="253" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_03tf24g_di" bpmnElement="SequenceFlow_03tf24g">
+        <di:waypoint x="500" y="253" />
+        <di:waypoint x="545" y="253" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_1otygtd_di" bpmnElement="SequenceFlow_1otygtd">
+        <di:waypoint x="361" y="253" />
+        <di:waypoint x="400" y="253" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_1n3cbq2_di" bpmnElement="SequenceFlow_1n3cbq2">
+        <di:waypoint x="1012" y="164" />
+        <di:waypoint x="1050" y="164" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="ExclusiveGateway_18wdjfw_di" bpmnElement="ExclusiveGateway_18wdjfw" isMarkerVisible="true">
+        <dc:Bounds x="832" y="228" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="898" y="246" width="74" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_1437jpv_di" bpmnElement="SequenceFlow_1437jpv">
+        <di:waypoint x="785" y="253" />
+        <di:waypoint x="832" y="253" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_0pa59bp_di" bpmnElement="SequenceFlow_0pa59bp">
+        <di:waypoint x="857" y="228" />
+        <di:waypoint x="857" y="164" />
+        <di:waypoint x="912" y="164" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="869" y="193" width="8" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="EndEvent_17nunju_di" bpmnElement="EndEvent_17nunju">
+        <dc:Bounds x="1050" y="325" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_0vhu5hh_di" bpmnElement="SequenceFlow_0vhu5hh">
+        <di:waypoint x="857" y="278" />
+        <di:waypoint x="857" y="343" />
+        <di:waypoint x="1050" y="343" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="874" y="321" width="21" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="BusinessRuleTask_039s79w_di" bpmnElement="Risikobewerten">
+        <dc:Bounds x="545" y="213" width="100" height="80" />
+      </bpmndi:BPMNShape>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

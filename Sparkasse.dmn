@@ -1,0 +1,817 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/1.0" id="Definitions_0sr2wm1" name="DRD" namespace="http://camunda.org/schema/1.0/dmn">
+  <decision id="Risiko" name="Risiko bewerten und Entscheidung des Darlehens">
+    <extensionElements>
+      <biodi:bounds x="618" y="97" width="180" height="80" />
+      <biodi:edge source="InputData_0w2j4s9">
+        <biodi:waypoints x="1027" y="199" />
+        <biodi:waypoints x="798" y="160" />
+      </biodi:edge>
+      <biodi:edge source="InputData_0gh3ep9">
+        <biodi:waypoints x="1021" y="103" />
+        <biodi:waypoints x="798" y="133" />
+      </biodi:edge>
+      <biodi:edge source="InputData_12937tb">
+        <biodi:waypoints x="383" y="314" />
+        <biodi:waypoints x="616" y="166" />
+      </biodi:edge>
+      <biodi:edge source="InputData_1rinuzw">
+        <biodi:waypoints x="412" y="197" />
+        <biodi:waypoints x="618" y="146" />
+      </biodi:edge>
+      <biodi:edge source="InputData_13ccprb">
+        <biodi:waypoints x="416" y="104" />
+        <biodi:waypoints x="618" y="125" />
+      </biodi:edge>
+      <biodi:edge source="status">
+        <biodi:waypoints x="707" y="278" />
+        <biodi:waypoints x="708" y="177" />
+      </biodi:edge>
+    </extensionElements>
+    <informationRequirement>
+      <requiredInput href="#InputData_0w2j4s9" />
+    </informationRequirement>
+    <informationRequirement>
+      <requiredInput href="#InputData_0gh3ep9" />
+    </informationRequirement>
+    <informationRequirement>
+      <requiredInput href="#InputData_12937tb" />
+    </informationRequirement>
+    <informationRequirement>
+      <requiredInput href="#InputData_1rinuzw" />
+    </informationRequirement>
+    <informationRequirement>
+      <requiredInput href="#InputData_13ccprb" />
+    </informationRequirement>
+    <informationRequirement>
+      <requiredDecision href="#status" />
+    </informationRequirement>
+    <decisionTable id="decisionTable_1">
+      <input id="input_1" label="statusdenkunden">
+        <inputExpression id="inputExpression_1" typeRef="string">
+          <text>Statusdenkunden</text>
+        </inputExpression>
+        <inputValues id="UnaryTests_1dsa1j8">
+          <text>"employee","retired"</text>
+        </inputValues>
+      </input>
+      <input id="InputClause_1icpa5v" label="Alter">
+        <inputExpression id="LiteralExpression_0z4hn4a" typeRef="boolean">
+          <text>Alter</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_0y2383k" label="Darlehensart">
+        <inputExpression id="LiteralExpression_1u7jwgy" typeRef="string">
+          <text>Darlehensart</text>
+        </inputExpression>
+        <inputValues id="UnaryTests_1lve4pq">
+          <text>"private","Autodarlehen"</text>
+        </inputValues>
+      </input>
+      <input id="InputClause_15hrgc8" label="Arbeitsvertragsfrist">
+        <inputExpression id="LiteralExpression_0d3bllt" typeRef="string">
+          <text>Arbeitsvertragsfrist</text>
+        </inputExpression>
+        <inputValues id="UnaryTests_0fxiosk">
+          <text>"limited","unlimited"</text>
+        </inputValues>
+      </input>
+      <input id="InputClause_0vjgft4" label="rueckzahlungsgarantie">
+        <inputExpression id="LiteralExpression_05s2np1" typeRef="boolean">
+          <text>rueckzahlungsgarantie</text>
+        </inputExpression>
+      </input>
+      <output id="output_1" label="Entscheidung" name="Entscheidung" typeRef="string">
+        <outputValues id="UnaryTests_06jd7cl">
+          <text>"Annehmbar","abgelehnt"</text>
+        </outputValues>
+      </output>
+      <rule id="DecisionRule_1r8o3lj">
+        <inputEntry id="UnaryTests_1y4xct3">
+          <text>"employee"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0hlygua">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_18r24qy">
+          <text>"private"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0yu2b2n">
+          <text>"limited"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1e1rjew">
+          <text>true</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0mi4axl">
+          <text>"Annehmbar"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_10o2afn">
+        <inputEntry id="UnaryTests_18er2qj">
+          <text>"employee"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0abtca6">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_07zq73f">
+          <text>"private"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_03t62zm">
+          <text>"limited"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0valls5">
+          <text>false</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0qze388">
+          <text>"abgelehnt"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1afvq65">
+        <inputEntry id="UnaryTests_12sf0da">
+          <text>"employee"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_04hlefe">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0k1jezj">
+          <text>"private"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1d9081h">
+          <text>"unlimited"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1w3hrc2">
+          <text>true</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1ugz3lw">
+          <text>"abgelehnt"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1nwfm7j">
+        <inputEntry id="UnaryTests_12d71wm">
+          <text>"employee"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1n7jd02">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0zgdzop">
+          <text>"private"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_12ot3pc">
+          <text>"unlimited"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1hpa1q8">
+          <text>false</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0t6ipfc">
+          <text>"abgelehnt"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0hcwlul">
+        <inputEntry id="UnaryTests_0awly6m">
+          <text>"employee"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_06bcat9">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1m5do8f">
+          <text>"Autodarlehen"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0o9101x">
+          <text>"limited"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0q9evf3">
+          <text>true</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_03cnome">
+          <text>"abgelehnt"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1ugoy83">
+        <inputEntry id="UnaryTests_16lhst2">
+          <text>"employee"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0b726j0">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1r7u9j4">
+          <text>"Autodarlehen"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1acaedf">
+          <text>"limited"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0ajk5r7">
+          <text>false</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_01t4btt">
+          <text>"abgelehnt"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_026jl2f">
+        <inputEntry id="UnaryTests_1nf7g3b">
+          <text>"employee"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0l44zci">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_14qzo8o">
+          <text>"Autodarlehen"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_158excc">
+          <text>"unlimited"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0gcyhpj">
+          <text>true</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1g9qr9h">
+          <text>"abgelehnt"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1ujfm14">
+        <inputEntry id="UnaryTests_0xcjxyx">
+          <text>"employee"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1yitf3q">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0hrcbl7">
+          <text>"Autodarlehen"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0qkcv2a">
+          <text>"unlimited"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_06m5qk2">
+          <text>false</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_01giaxd">
+          <text>"abgelehnt"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0z5zy8s">
+        <inputEntry id="UnaryTests_1bqkoju">
+          <text>"employee"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1ykkdpe">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0ip2m68">
+          <text>"private"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_17giwln">
+          <text>"limited"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0qzcql3">
+          <text>true</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1xsc2zy">
+          <text>"Annehmbar"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1e094ow">
+        <inputEntry id="UnaryTests_0iseyo1">
+          <text>"employee"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0dafkom">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0sppfu2">
+          <text>"private"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1bn87xj">
+          <text>"limited"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1cpumsn">
+          <text>false</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_19gd9qk">
+          <text>"Annehmbar"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_14qbuad">
+        <inputEntry id="UnaryTests_0jeovqv">
+          <text>"employee"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_19inui8">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0nc6czs">
+          <text>"private"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0y8to7p">
+          <text>"unlimited"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1858bvv">
+          <text>true</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0mhe4br">
+          <text>"Annehmbar"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0qgsmaz">
+        <inputEntry id="UnaryTests_0czbdkx">
+          <text>"employee"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0v5co2j">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1uoxj99">
+          <text>"private"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0z5ix2h">
+          <text>"unlimited"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0rbo1t5">
+          <text>false</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1eczmcy">
+          <text>"Annehmbar"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1oslnem">
+        <inputEntry id="UnaryTests_1j868wf">
+          <text>"employee"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_12e6a97">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1xzedez">
+          <text>"Autodarlehen"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0i55t1x">
+          <text>"limited"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_01aqyde">
+          <text>true</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0vk8wpr">
+          <text>"Annehmbar"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0tldfp5">
+        <inputEntry id="UnaryTests_0j543ob">
+          <text>"employee"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1mcpypb">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1a20l4b">
+          <text>"Autodarlehen"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1x34spt">
+          <text>"limited"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_00cdzzo">
+          <text>false</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1wp3rz6">
+          <text>"abgelehnt"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1uuxki5">
+        <inputEntry id="UnaryTests_00h5hg8">
+          <text>"employee"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0is23qw">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_06znuj8">
+          <text>"Autodarlehen"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1a8zymo">
+          <text>"unlimited"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0xurpqm">
+          <text>true</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_14bmkut">
+          <text>"Annehmbar"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1k0amhv">
+        <inputEntry id="UnaryTests_1wbc9ti">
+          <text>"employee"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_059qwlc">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_14npu3r">
+          <text>"Autodarlehen"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0iqo3iz">
+          <text>"unlimited"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0dk3lk7">
+          <text>false</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_19fvi4m">
+          <text>"Annehmbar"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_14uadbd">
+        <inputEntry id="UnaryTests_1w4jje4">
+          <text>"retired"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0cqjfsc">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1ph5yf3">
+          <text>"private"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_04jxg6v">
+          <text>"limited"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0s68j9v">
+          <text>true</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0nnn2dc">
+          <text>"Annehmbar"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0mc0k14">
+        <inputEntry id="UnaryTests_0uzw07j">
+          <text>"retired"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1vn788v">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0qpnk4u">
+          <text>"private"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_14jnak0">
+          <text>"limited"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0tgfvaj">
+          <text>false</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0ear64m">
+          <text>"abgelehnt"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0syg0a1">
+        <inputEntry id="UnaryTests_0sga04l">
+          <text>"retired"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_04b5ai1">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_191hfnv">
+          <text>"private"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1af5tc8">
+          <text>"unlimited"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0tfvkgq">
+          <text>true</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1sc69ls">
+          <text>"Annehmbar"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_19c69nu">
+        <inputEntry id="UnaryTests_1tetr14">
+          <text>"retired"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_117d5dc">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0n0nmxr">
+          <text>"private"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_025mjdc">
+          <text>"unlimited"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1m8a2j8">
+          <text>false</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_06pajoa">
+          <text>"abgelehnt"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1pef769">
+        <inputEntry id="UnaryTests_1ppdpzz">
+          <text>"retired"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_13qsa59">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0hsflke">
+          <text>"Autodarlehen"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0ryulh3">
+          <text>"limited"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1dg85xt">
+          <text>true</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0jaar8q">
+          <text>"Annehmbar"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0sv27so">
+        <inputEntry id="UnaryTests_1vaeltc">
+          <text>"retired"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0a0usy7">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0nzot8m">
+          <text>"Autodarlehen"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_04fuprq">
+          <text>"limited"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1lbg7oo">
+          <text>false</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_14vbksx">
+          <text>"Annehmbar"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0rrq0hu">
+        <inputEntry id="UnaryTests_1st3b5w">
+          <text>"retired"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_15lk2j2">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1rtl41f">
+          <text>"Autodarlehen"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1oa3f26">
+          <text>"unlimited"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1us5rsw">
+          <text>true</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_05mkdum">
+          <text>"Annehmbar"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0fw69c2">
+        <inputEntry id="UnaryTests_0ixbhrp">
+          <text>"retired"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0y78iro">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0cu9r14">
+          <text>"Autodarlehen"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1x0q75k">
+          <text>"unlimited"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1v1k1d0">
+          <text>false</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_10u2n7s">
+          <text>"Annehmbar"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_11q6507">
+        <inputEntry id="UnaryTests_1k0szmc">
+          <text>"retired"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0uzecxx">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_09zt3cr">
+          <text>"private"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0r8z89o">
+          <text>"limited"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1boauhg">
+          <text>true</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1yx2v8o">
+          <text>"Annehmbar"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0byp1f9">
+        <inputEntry id="UnaryTests_0kym4d6">
+          <text>"retired"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_14fu5o3">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_14no7gm">
+          <text>"private"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_034eg30">
+          <text>"limited"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_14i3ndy">
+          <text>false</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1t9rj1s">
+          <text>"Annehmbar"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1suvxq4">
+        <inputEntry id="UnaryTests_1gxmr96">
+          <text>"retired"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0l1x7xx">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_10jlp7e">
+          <text>"private"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_05komms">
+          <text>"unlimited"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_05xccsj">
+          <text>true</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0twbqmd">
+          <text>"Annehmbar"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0gwxkwa">
+        <inputEntry id="UnaryTests_0059dor">
+          <text>"retired"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0szofax">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0pjqmxq">
+          <text>"private"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0g8mh30">
+          <text>"unlimited"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1dceabh">
+          <text>false</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_12dknjx">
+          <text>"Annehmbar"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_057f08k">
+        <inputEntry id="UnaryTests_00acm1s">
+          <text>"retired"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0ihxxju">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0l0weep">
+          <text>"Autodarlehen"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0klqmrh">
+          <text>"limited"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0yqvsxn">
+          <text>true</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_13dnpop">
+          <text>"Annehmbar"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1xizmnd">
+        <inputEntry id="UnaryTests_0mokt1b">
+          <text>"retired"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0xsh6br">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0fk8gfh">
+          <text>"Autodarlehen"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1v52eih">
+          <text>"limited"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0gjcl6m">
+          <text>true</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0srkxjt">
+          <text>"Annehmbar"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1e9fqxa">
+        <inputEntry id="UnaryTests_1xk2014">
+          <text>"retired"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0slbz5b">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0i3vnl2">
+          <text>"Autodarlehen"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1gwpkx5">
+          <text>"unlimited"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1h547cd">
+          <text>true</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0o52l7f">
+          <text>"Annehmbar"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1nv7nnz">
+        <inputEntry id="UnaryTests_0lihi8g">
+          <text>"retired"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0w9q52a">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0dmmy5m">
+          <text>"Autodarlehen"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1apwajo">
+          <text>"unlimited"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0ilfql1">
+          <text>false</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0zf7qgb">
+          <text>"abgelehnt"</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <decision id="status" name="Status festlegen">
+    <extensionElements>
+      <biodi:bounds x="617" y="278" width="180" height="80" />
+      <biodi:edge source="InputData_01c5okt">
+        <biodi:waypoints x="715" y="480" />
+        <biodi:waypoints x="713" y="358" />
+      </biodi:edge>
+    </extensionElements>
+    <informationRequirement>
+      <requiredInput href="#InputData_01c5okt" />
+    </informationRequirement>
+    <decisionTable id="DecisionTable_0y7dp0g">
+      <input id="InputClause_0nm6mgx" label="Jahreseinkommen">
+        <inputExpression id="LiteralExpression_1rzk5kd" typeRef="integer">
+          <text>Jahreseinkommen</text>
+        </inputExpression>
+      </input>
+      <output id="OutputClause_192z8ur" label="Status den kunden" name="Statusdenkunden" typeRef="string">
+        <outputValues id="UnaryTests_18yg87t">
+          <text>"employee","retired"</text>
+        </outputValues>
+      </output>
+      <rule id="DecisionRule_1l020ko">
+        <inputEntry id="UnaryTests_14pvi1j">
+          <text>[24000..48000[</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0b7hvye">
+          <text>"employee"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_011n0kk">
+        <inputEntry id="UnaryTests_0s0wnvz">
+          <text>[48000..70000[</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1nwobwb">
+          <text>"retired"</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <inputData id="InputData_01c5okt" name="Einkommenimjahr">
+    <extensionElements>
+      <biodi:bounds x="652" y="480" width="125" height="45" />
+    </extensionElements>
+  </inputData>
+  <inputData id="InputData_0gh3ep9" name="Gerantie für die Rückzahlung des Darlehens">
+    <extensionElements>
+      <biodi:bounds x="1021" y="72" width="125" height="45" />
+    </extensionElements>
+  </inputData>
+  <inputData id="InputData_0w2j4s9" name="Status der Kunden">
+    <extensionElements>
+      <biodi:bounds x="1027" y="187" width="125" height="45" />
+    </extensionElements>
+  </inputData>
+  <inputData id="InputData_13ccprb" name="Arbeitsvertragsfrist">
+    <extensionElements>
+      <biodi:bounds x="291" y="74" width="125" height="45" />
+    </extensionElements>
+  </inputData>
+  <inputData id="InputData_1rinuzw" name="Alter">
+    <extensionElements>
+      <biodi:bounds x="287" y="190" width="125" height="45" />
+    </extensionElements>
+  </inputData>
+  <inputData id="InputData_12937tb" name="Darlehungsart">
+    <extensionElements>
+      <biodi:bounds x="284" y="314" width="125" height="45" />
+    </extensionElements>
+  </inputData>
+  <textAnnotation id="TextAnnotation_0v0nt2x">
+    <extensionElements>
+      <biodi:bounds x="129" y="110" width="100" height="80" />
+    </extensionElements>
+    <text>Alter &lt;=60</text>
+  </textAnnotation>
+  <association id="Association_1s3j7fr">
+    <extensionElements>
+      <biodi:edge source="InputData_1rinuzw">
+        <biodi:waypoints x="287" y="212" />
+        <biodi:waypoints x="229" y="179" />
+      </biodi:edge>
+    </extensionElements>
+    <sourceRef href="#InputData_1rinuzw" />
+    <targetRef href="#TextAnnotation_0v0nt2x" />
+  </association>
+</definitions>
